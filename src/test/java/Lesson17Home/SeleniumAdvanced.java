@@ -2,6 +2,7 @@ package Lesson17Home;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,10 +29,16 @@ public class SeleniumAdvanced {
         String targetURL = "https://demoqa.com/frames";
         driver.get(targetURL);
         //WebElement frame = driver.findElement(By.id("frame2"));
-        driver.switchTo().frame("frame2");
-        String frameText = driver.findElement(By.id("sampleHeading")).getText();
-        System.out.println(frameText);
+        driver.switchTo().frame("frame1");
+        String frame1Text = driver.findElement(By.id("sampleHeading")).getText();
+        System.out.println(frame1Text);
 
+        driver.switchTo().defaultContent();
+        driver.switchTo().frame("frame2");
+        String frame2Text = driver.findElement(By.id("sampleHeading")).getText();
+        System.out.println(frame2Text);
+
+        driver.quit();
     }
 
     @Test
@@ -40,6 +47,36 @@ public class SeleniumAdvanced {
 //  2. Fill the form (please skip steps upload file and subjects)
 //  3. Submit
 //
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+
+        driver.get("https://demoqa.com/automation-practice-form");
+
+        WebElement firstNameTextField = driver.findElement(By.id("firstName"));
+        firstNameTextField.sendKeys("John");
+
+        WebElement lastNameTextField = driver.findElement(By.id("lastName"));
+        lastNameTextField.sendKeys("Doe");
+
+        WebElement emailTextField = driver.findElement(By.id("userEmail"));
+        emailTextField.sendKeys("johnny_d@google.com");
+
+        WebElement genderRadioButton = driver.findElement(By.id("gender-radio-1"));
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("arguments[0].click();", genderRadioButton);
+        //genderRadioButton.click();
+
+        WebElement mobileTextField  = driver.findElement(By.id("userNumber"));
+        WebElement dateOfBirthTextField = driver.findElement(By.id("dateOfBirthInput"));
+        WebElement hobbiesCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Music']"));
+        WebElement currentAddress = driver.findElement(By.id("currentAddress"));
+        //css-2b097c-container
+        WebElement stateAndCityDropdown = driver.findElement(By.xpath("//*[contains(text(),'NCR')]"));
+        WebElement city = driver.findElement(By.xpath("Gurgaon"));
+        WebElement selectCityDropdown = driver.findElement(By.id(""));
+        WebElement submitButton = driver.findElement(By.id("submit"));
 
     }
 
