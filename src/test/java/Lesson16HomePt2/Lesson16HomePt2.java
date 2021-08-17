@@ -40,9 +40,6 @@ public class Lesson16HomePt2 {
         String currentPageURL = driver.getCurrentUrl();
         System.out.println("Current URL: " + currentPageURL);
 
-//        System.out.println(targetURL.replace("http://", ""));
-//        System.out.println(currentPageURL.replace("http://", ""));
-
         if (targetURL.replace("http://", "").equals
                 (currentPageURL.replace("http://", ""))) {
             System.out.println(">>> Target URL corresponds to current URL");
@@ -56,6 +53,11 @@ public class Lesson16HomePt2 {
 
         @Test
         public void browserClose() {
+//            1. Launch a new Chrome browser.
+//            2. Open https://www.toolsqa.com/automation-practice-switch-windows/
+//            3. Click “New Window”
+//            4. Close the browser using close() command
+
             WebDriverManager.chromedriver().setup();
             WebDriver driver = new ChromeDriver();
             driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
@@ -104,6 +106,7 @@ public class Lesson16HomePt2 {
             driver.navigate().forward();
             driver.navigate().to(homePage);
             driver.navigate().refresh();
+
             driver.quit();
 
         }
@@ -119,9 +122,7 @@ public class Lesson16HomePt2 {
 
             WebDriverManager.chromedriver().setup();
             WebDriver driver = new ChromeDriver();
-
             driver.manage().window().maximize();
-
 
             String startButton = "//button[normalize-space()='Start']";
 
@@ -132,15 +133,15 @@ public class Lesson16HomePt2 {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(resetButton)));
             driver.findElement(By.xpath(resetButton)).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(startButton)));
+
+            driver.quit();
         }
 
         @Test
     public void dynamicProperties() {
-
 //            1. Launch new Browser
 //            2. Open “https://demoqa.com/dynamic-properties"
 //            3. Add WebDriverWait for waiting to button “Visible After 5 Seconds” to be displayed
-
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -149,6 +150,7 @@ public class Lesson16HomePt2 {
         WebDriverWait wait = new WebDriverWait(driver, 6);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("visibleAfter")));
 
+        driver.quit();
 
         }
 
