@@ -6,6 +6,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -86,7 +89,25 @@ public class SeleniumAdvanced {
 //  2. Fill text form
 //  3. Submit
 
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
+        driver.get("https://demoqa.com/text-box");
+        WebElement fullName = driver.findElement(By.id("userName"));
+        WebElement email = driver.findElement(By.id("userEmail"));
+        WebElement currentAddress = driver.findElement(By.id("currentAddress"));
+        WebElement permanentAddress = driver.findElement(By.id("permanentAddress"));
+        WebElement submit = driver.findElement(By.id("submit"));
+
+        fullName.sendKeys("John Doe");
+        email.sendKeys("johndoe@google.com");
+        currentAddress.sendKeys("New York, New York");
+        permanentAddress.sendKeys("Los Angeles, California");
+        submit.click();
+
+        driver.quit();
     }
 
     @Test
@@ -96,6 +117,23 @@ public class SeleniumAdvanced {
 //  3. Choose 25th country
 //  4. Choose country by value “SriLanka”
 
+        WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+
+        driver.get("http://way2automation.com/way2auto_jquery/dropdown.php#load_box");
+        int size = driver.findElements(By.tagName("iframe")).size();
+        System.out.println("Frames on this page: " + size);
+
+        driver.switchTo().frame(0);
+        WebElement select = driver.findElement(By.tagName("select"));
+        Select selectOption = new Select(select);
+        selectOption.selectByVisibleText("Austria");
+        selectOption.selectByIndex(24);
+        selectOption.selectByValue("SriLanka");
+
+        driver.quit();
     }
 
 }
