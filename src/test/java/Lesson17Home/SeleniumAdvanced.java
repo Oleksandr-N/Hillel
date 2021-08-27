@@ -69,17 +69,46 @@ public class SeleniumAdvanced {
         WebElement genderRadioButton = driver.findElement(By.id("gender-radio-1"));
         JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         javascriptExecutor.executeScript("arguments[0].click();", genderRadioButton);
-        //genderRadioButton.click();
 
         WebElement mobileTextField  = driver.findElement(By.id("userNumber"));
+        mobileTextField.sendKeys("0639988776");
+
+        // Handle the Date of Birth field >>
         WebElement dateOfBirthTextField = driver.findElement(By.id("dateOfBirthInput"));
-        WebElement hobbiesCheckbox = driver.findElement(By.xpath("//label[normalize-space()='Music']"));
+        dateOfBirthTextField.click();
+
+        WebElement monthOption = driver.findElement(By.className("react-datepicker__month-select"));
+        Select selectMonth = new Select(monthOption);
+        selectMonth.selectByValue("9");
+        WebElement yearOption = driver.findElement(By.className("react-datepicker__year-select"));
+        Select selectYear = new Select(yearOption);
+        selectYear.selectByValue("1990");
+        WebElement dayOfMonth = driver.findElement(By.xpath("//div[@class='react-datepicker__day react-datepicker__day--004']"));
+        dayOfMonth.click();
+        // << Handle the Date of Birth field
+
+        WebElement hobbiesCheckbox = driver.findElement(By.id("hobbies-checkbox-3"));
+        javascriptExecutor.executeScript("arguments[0].click();", hobbiesCheckbox);
+
         WebElement currentAddress = driver.findElement(By.id("currentAddress"));
-        //css-2b097c-container
-        WebElement stateAndCityDropdown = driver.findElement(By.xpath("//*[contains(text(),'NCR')]"));
-        WebElement city = driver.findElement(By.xpath("Gurgaon"));
-        WebElement selectCityDropdown = driver.findElement(By.id(""));
+        currentAddress.sendKeys("Sumska str., 1, Kharkiv, Ukraine");
+
+        javascriptExecutor.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        WebElement stateDropdown = driver.findElement(By.id("state"));
+        stateDropdown.click();
+
+        WebElement state = driver.findElement(By.xpath("//*[contains(text(),'NCR')]"));
+        state.click();
+
+        WebElement cityDropdown = driver.findElement(By.id("city"));
+        cityDropdown.click();
+        WebElement city = driver.findElement(By.xpath("//*[contains(text(),'Gurgaon')]"));
+        city.click();
+
         WebElement submitButton = driver.findElement(By.id("submit"));
+        submitButton.click();
+
+//        driver.quit();
 
     }
 
